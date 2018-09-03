@@ -15,14 +15,19 @@ fn main() {
         }
     }
 
-    let dst = cmake::Config::new("sleef")
-        .very_verbose(true)
+    let mut cmake = cmake::Config::new("sleef");
+
+    cmake.very_verbose(true)
         // no DFT libraries (should be behind a feature flag):
         .define("BUILD_DFT", "FALSE")
         // no tests (should build and run the tests behind a feature flag):
         .define("BUILD_TESTS", "FALSE")
-        .define("BUILD_SHARED_LIBS", "TRUE")
-        .build();
+        .define("BUILD_SHARED_LIBS", "TRUE");
+
+    #[cfg(feature = "inlining")]
+    cmake.cflag("-flto=thin");
+
+    let dst = cmake.build();
 
     println!("cargo:rustc-link-lib=sleef");
     println!("cargo:rustc-link-search=native={}", dst.join("lib").display());

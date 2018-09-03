@@ -38,3 +38,4 @@ bindgen = "^0.39"
 [features]
 default = []
 dft = []
+inlining = []

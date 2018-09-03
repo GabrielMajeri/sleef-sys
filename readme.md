@@ -15,6 +15,10 @@ types) and the SLEEF APIs that use it are not included in these bindings _yet_
   SIMD-vectorized and parallelized subroutines for discrete Fourier transform
   (DFT) with an API similar to FFTW.
 
+* **inlining** (default: disabled): builds SLEEF with ThinLTO to allow for
+  [cross-language inlining](https://github.com/rust-lang/rust/pull/53031#issuecomment-413806821).
+  Requires using Clang as the C compiler.
+
 ### Platform support
 
 This wrapper supports the following platforms, but CI is not properly set up for
